@@ -6,7 +6,7 @@ const Contact = () => {
   const contactInfo = [
     { icon: MapPin, title: 'Studio Address', detail: 'malappuram, kerala ' },
     { icon: Phone, title: 'Phone Number', detail: '+91 8590315711' },
-    { icon: Mail, title: 'Email Address', detail: 'greekstudio@elitestudio.com' },
+    { icon: Mail, title: 'Email Address', detail: 'elitestudio@gmail.com' },
     { icon: Clock, title: 'Working Hours', detail: 'Mon - Sat: 09:00 AM - 07:00 PM' },
   ];
 

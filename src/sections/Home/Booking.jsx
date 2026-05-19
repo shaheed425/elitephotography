@@ -52,11 +52,11 @@ const Booking = () => {
             <div className="space-y-6">
               <div>
                 <p className="text-accent text-xs uppercase tracking-widest mb-1">Direct Line</p>
-                <p className="text-white text-xl font-serif">+1 (555) 000-STUDIO</p>
+                <p className="text-white text-xl font-serif">+91 9072713595</p>
               </div>
-              <div>
+              <div>       
                 <p className="text-accent text-xs uppercase tracking-widest mb-1">Email Inquiry</p>
-                <p className="text-white text-xl font-serif">hello@elitestudio.com</p>
+                <p className="text-white text-xl font-serif">elitestudio@gmail.com</p>
               </div>
             </div>
           </div>
@@ -74,8 +74,8 @@ const Booking = () => {
                 <label className="text-[10px] uppercase tracking-widest text-muted-light font-bold">Full Name</label>
                 <input 
                   type="text" name="name" value={formData.name} onChange={handleChange} required
-                  className="bg-primary border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors"
-                  placeholder="John Doe"
+                  className="bg-primary border border-white/10 p-4  focus:outline-none focus:border-accent transition-colors"
+                  placeholder="Enter Your Name"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -83,7 +83,7 @@ const Booking = () => {
                 <input 
                   type="email" name="email" value={formData.email} onChange={handleChange} required
                   className="bg-primary border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors"
-                  placeholder="john@example.com"
+                  placeholder="Enter Your Email"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -91,14 +91,15 @@ const Booking = () => {
                 <input 
                   type="tel" name="phone" value={formData.phone} onChange={handleChange} required
                   className="bg-primary border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="Enter Your Valid Phone Number"
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] uppercase tracking-widest text-muted-light font-bold">Preferred Date</label>
                 <input 
                   type="date" name="date" value={formData.date} onChange={handleChange} required
-                  className="bg-primary border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors"
+                  className="bg-primary border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors [color-scheme:dark]"
+                  style={{ colorScheme: 'dark' }}
                 />
               </div>
               <div className="flex flex-col gap-2 md:col-span-2">
@@ -106,7 +107,7 @@ const Booking = () => {
                 <input 
                   type="text" name="location" value={formData.location} onChange={handleChange} required
                   className="bg-primary border border-white/10 p-4 text-white focus:outline-none focus:border-accent transition-colors"
-                  placeholder="e.g. Malappuram, Kerala"
+                  placeholder="Enter Your Location"
                 />
               </div>
               <div className="flex flex-col gap-2 md:col-span-2">
