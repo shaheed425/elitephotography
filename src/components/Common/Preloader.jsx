@@ -75,7 +75,7 @@ const Preloader = ({ onComplete }) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
             onClick={handleSkip}
-            className="absolute bottom-12 right-12 z-[110] text-[10px] uppercase tracking-[0.3em] text-muted-light hover:text-accent transition-colors border border-white/10 px-6 py-2 backdrop-blur-sm"
+            className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-[110] text-[10px] uppercase tracking-[0.3em] text-muted-light hover:text-accent transition-colors border border-white/10 px-4 py-2 md:px-6 md:py-2 backdrop-blur-sm"
           >
             Skip Intro
           </motion.button>
@@ -97,7 +97,7 @@ const Preloader = ({ onComplete }) => {
           </motion.div>
 
           {/* Spreading Camera Parts */}
-          <div className="relative w-96 h-96">
+          <div className="relative w-full max-w-sm md:w-96 md:h-96 aspect-square flex items-center justify-center">
             {parts.map((part, i) => (
               <motion.div
                 key={part.id}
@@ -110,15 +110,15 @@ const Preloader = ({ onComplete }) => {
               >
                 {/* Detailed Camera Part Shapes */}
                 {part.id.includes('lens') ? (
-                  <div className="border-4 border-accent/30 rounded-full w-48 h-48 flex items-center justify-center">
-                    <div className="border-2 border-accent/20 rounded-full w-32 h-32 bg-accent/5 overflow-hidden relative">
+                  <div className="border-4 border-accent/30 rounded-full w-32 h-32 md:w-48 md:h-48 flex items-center justify-center">
+                    <div className="border-2 border-accent/20 rounded-full w-20 h-20 md:w-32 md:h-32 bg-accent/5 overflow-hidden relative">
                       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-transparent via-white/10 to-transparent" />
                     </div>
                   </div>
                 ) : part.id.includes('body') ? (
-                  <div className="border-2 border-accent/20 rounded-lg w-64 h-40 bg-primary-light/50 backdrop-blur-md" />
+                  <div className="border-2 border-accent/20 rounded-lg w-40 h-24 md:w-64 md:h-40 bg-primary-light/50 backdrop-blur-md" />
                 ) : part.id === 'shutter' ? (
-                  <div className="w-40 h-40 border-2 border-accent/40 rounded-full relative">
+                  <div className="w-24 h-24 md:w-40 md:h-40 border-2 border-accent/40 rounded-full relative">
                     {[...Array(8)].map((_, j) => (
                       <div 
                         key={j} 
@@ -128,7 +128,7 @@ const Preloader = ({ onComplete }) => {
                     ))}
                   </div>
                 ) : (
-                  <div className="w-12 h-12 border border-accent/30 rounded-md bg-accent/10" />
+                  <div className="w-8 h-8 md:w-12 md:h-12 border border-accent/30 rounded-md bg-accent/10" />
                 )}
               </motion.div>
             ))}
@@ -140,10 +140,10 @@ const Preloader = ({ onComplete }) => {
               transition={{ duration: 3, ease: "linear", repeat: Infinity }}
               className="absolute inset-0 flex items-center justify-center opacity-10"
             >
-              <div className="w-[500px] h-[2px] bg-accent" />
-              <div className="w-[500px] h-[2px] bg-accent rotate-45" />
-              <div className="w-[500px] h-[2px] bg-accent rotate-90" />
-              <div className="w-[500px] h-[2px] bg-accent rotate-135" />
+              <div className="w-[150vw] md:w-[500px] h-[2px] bg-accent absolute" />
+              <div className="w-[150vw] md:w-[500px] h-[2px] bg-accent rotate-45 absolute" />
+              <div className="w-[150vw] md:w-[500px] h-[2px] bg-accent rotate-90 absolute" />
+              <div className="w-[150vw] md:w-[500px] h-[2px] bg-accent rotate-135 absolute" />
             </motion.div>
           </div>
 
