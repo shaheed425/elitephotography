@@ -3,7 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { galleryAPI } from '../../services/api';
+import Skeleton from '../../components/UI/Skeleton';
 
 const categories = ['All', 'Wedding', 'Portrait', 'Couple', 'Event', 'Product', 'Fashion'];
 
@@ -17,25 +19,39 @@ const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const [items, setItems] = useState(mockPortfolio);
 
-  useEffect(() => {
-    const loadItems = async () => {
-      try {
-        const res = await galleryAPI.getAll();
-        if (res.data.data.length > 0) {
-          setItems(res.data.data);
-        }
-      } catch (err) {
-        console.log('Using mock data');
-      }
-    };
-    loadItems();
-  }, []);
+  const { data: items, isLoading } = useQuery({
+    queryKey: ['portfolio'],
+    queryFn: async () => {
+      const res = await galleryAPI.getAll();
+      return res.data.data.length > 0 ? res.data.data : mockPortfolio;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
+  if (isLoading) {
+    return (
+      <section id="portfolio" className="section-padding bg-primary">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="w-full md:w-auto">
+              <Skeleton className="h-4 w-24 mb-4" />
+              <Skeleton className="h-12 w-64" />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Skeleton count={6} className="aspect-[3/4] w-full" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const displayItems = items || mockPortfolio;
 
   const filteredItems = activeCategory === 'All' 
-    ? items 
-    : items.filter(item => item.category === activeCategory);
+    ? displayItems 
+    : displayItems.filter(item => item.category === activeCategory);
 
   const slides = filteredItems.map(item => ({ src: item.imageUrl }));
 
@@ -93,6 +109,7 @@ const Portfolio = () => {
                 <img 
                   src={item.imageUrl} 
                   alt={item.title} 
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">

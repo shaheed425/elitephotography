@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Video, Heart, User, Briefcase, ShoppingBag } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { servicesAPI } from '../../services/api';
+import Skeleton from '../../components/UI/Skeleton';
 
 const iconMap = {
   Heart, User, Camera, Video, ShoppingBag, Briefcase
@@ -24,36 +26,35 @@ const mockServices = [
 ];
 
 const Services = () => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const loadItems = async () => {
-      try {
-        const res = await servicesAPI.getActive();
-        if (res.data.data.length > 0) {
-          setItems(res.data.data);
-        } else {
-          setItems(mockServices);
-        }
-      } catch (err) {
-        console.log('Using mock services');
-        setItems(mockServices);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadItems();
-  }, []);
+  const { data: items, isLoading } = useQuery({
+    queryKey: ['activeServices'],
+    queryFn: async () => {
+      const res = await servicesAPI.getActive();
+      return res.data.data.length > 0 ? res.data.data : mockServices;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
 
-  if (loading) {
+  if (isLoading) {
     return (
-      <div className="py-20 text-center bg-primary-light">
-        <div className="inline-block w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
-      </div>
+      <section id="services" className="section-padding bg-primary-light">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <Skeleton className="h-4 w-32 mx-auto mb-4" />
+            <Skeleton className="h-16 w-3/4 mx-auto md:w-1/2" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <Skeleton count={3} className="h-[500px] w-full rounded-3xl" />
+          </div>
+        </div>
+      </section>
     );
   }
+
+  // Use fetched items or fallback to mock
+  const displayItems = items || mockServices;
 
   return (
     <section id="services" className="section-padding bg-primary-light">
@@ -76,7 +77,7 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {items.map((service, index) => {
+          {displayItems.map((service, index) => {
             const Icon = iconMap[service.icon] || Camera;
             return (
               <motion.div
