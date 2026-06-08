@@ -6,5 +6,5 @@ Disallow: /admin/login
 Disallow: /admin/dashboard
 Disallow: /api/
 
-# Specify the sitemap location
-Sitemap: https://elitestudio.com/sitemap.xml
+# Sitemap
+Sitemap: https://elitephotography.vercel.app/sitemap.xml
